@@ -1,9 +1,11 @@
 package com.TrueNorth.vhs.entity;
 
+import com.TrueNorth.vhs.permission.Role;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "Users")
@@ -14,74 +16,41 @@ public class User {
             allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE,
             generator = "user_sequence")
-    private Long id;
-    private String name;
-    private Integer age;
-    private LocalDate dob;
-    private String email;
+    @Column(name = "userId")
+    private Long userId;
+
+    @Column(name="username")
     private String username;
+
+    @Column(name = "email")
+    private String email;
+
+    @Column(name="role")
+    private Role role;
+
+    @Column(name="password")
+    private String password;
+
+    @OneToMany
+    @Column(name="userVHS")
+    private List<Vhs> vhsList;
 
     public User() {
     }
 
-    public User(Long id, String name, Integer age, LocalDate dob, String email) {
-        this.id = id;
-        this.name = name;
-        this.age = age;
-        this.dob = dob;
+    public User(String username, String email, Role role,String password) {
+        this.username = username;
         this.email = email;
+        this.role = role;
+        this.password=password;
     }
 
-    public User(String name,
-                   Integer age,
-                   LocalDate dob,
-                   String email,
-                   String username) {
-        this.name = name;
-        this.age = age;
-        this.dob = dob;
-        this.email = email;
-        this.username=username;
+    public Long getUserId() {
+        return userId;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
-    public LocalDate getDob() {
-        return dob;
-    }
-
-    public void setDob(LocalDate dob) {
-        this.dob = dob;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public String getUsername() {
@@ -92,14 +61,35 @@ public class User {
         this.username = username;
     }
 
-    @Override
-    public String toString() {
-        return "Student{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", age=" + age +
-                ", dob=" + dob +
-                ", email='" + email + '\'' +
-                '}';
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public List<Vhs> getVhsList() {
+        return vhsList;
+    }
+
+    public void setVhsList(List<Vhs> vhsList) {
+        this.vhsList = vhsList;
     }
 }
