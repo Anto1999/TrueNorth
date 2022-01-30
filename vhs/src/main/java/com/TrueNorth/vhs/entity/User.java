@@ -1,56 +1,48 @@
 package com.TrueNorth.vhs.entity;
 
 import com.TrueNorth.vhs.permission.Role;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
-@Table(name = "Users")
+@Table(name = "users",
+                uniqueConstraints = {
+                    @UniqueConstraint(columnNames = "username"),
+                    @UniqueConstraint( columnNames= "email" )
+                })
 public class User {
     @Id
-    @SequenceGenerator(name = "user_sequence",
-            sequenceName = "user_sequence",
-            allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,
-            generator = "user_sequence")
-    @Column(name = "userId")
-    private Long userId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @Column(name="username")
     private String username;
-
-    @Column(name = "email")
     private String email;
-
-    @Column(name="role")
-    private Role role;
-
-    @Column(name="password")
     private String password;
-
-    @OneToMany
-    @Column(name="userVHS")
-    private List<Vhs> vhsList;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(     name="user_roles",
+                    joinColumns = @JoinColumn(name="user_id"),
+                    inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<>();
 
     public User() {
+
     }
 
-    public User(String username, String email, Role role,String password) {
+    public User(String username, String email, String password) {
         this.username = username;
         this.email = email;
-        this.role = role;
-        this.password=password;
+        this.password = password;
     }
 
-    public Long getUserId() {
-        return userId;
+    public Long getId() {
+        return id;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getUsername() {
@@ -69,14 +61,6 @@ public class User {
         this.email = email;
     }
 
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
     public String getPassword() {
         return password;
     }
@@ -85,11 +69,11 @@ public class User {
         this.password = password;
     }
 
-    public List<Vhs> getVhsList() {
-        return vhsList;
+    public Set<Role> getRoles() {
+        return roles;
     }
 
-    public void setVhsList(List<Vhs> vhsList) {
-        this.vhsList = vhsList;
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 }
