@@ -4,7 +4,6 @@ import com.TrueNorth.vhs.permission.Role;
 
 import javax.persistence.*;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -16,6 +15,7 @@ import java.util.Set;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long id;
 
     private String username;
@@ -27,11 +27,15 @@ public class User {
                     inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
+
+
+
     public User() {
 
     }
 
     public User(String username, String email, String password) {
+
         this.username = username;
         this.email = email;
         this.password = password;
@@ -76,4 +80,6 @@ public class User {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
+
+
 }

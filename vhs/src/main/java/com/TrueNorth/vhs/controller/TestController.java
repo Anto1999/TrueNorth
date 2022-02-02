@@ -1,5 +1,6 @@
 package com.TrueNorth.vhs.controller;
 
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +19,6 @@ public class TestController {
     public String userAccess() {
         return "User Content.";
     }
-
 
 
     @GetMapping("/admin")

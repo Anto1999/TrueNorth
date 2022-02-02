@@ -1,5 +1,8 @@
 package com.TrueNorth.vhs.entity;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.tomcat.jni.Local;
 
 import javax.persistence.*;
@@ -14,32 +17,36 @@ public class Rental {
             allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE,
             generator = "rental_sequence")
+    @Column(name="rental_id")
     private Long rentalId;
 
     @ManyToOne
-    @JoinColumn(name="userId")
+    @JoinColumn(name="user_id")
     User user;
 
     @ManyToOne
-    @JoinColumn(name = "vhsId")
+    @JoinColumn(name = "vhs_id")
     Vhs vhs;
 
     @Column(name = "Rented")
-    private LocalDate rented;
+    private LocalDate rented=LocalDate.now();
 
     @Column(name = "Returned")
-    private LocalDate returned;
+    private LocalDate returned=LocalDate.now().plusDays(14);
 
-    public Rental(User user, Vhs vhs, LocalDate rented, LocalDate returned) {
+    public Rental(){
+
+    }
+
+    @JsonCreator
+    public Rental(@JsonProperty("user_id") User user,@JsonProperty("vhs_id") Vhs vhs, LocalDate rented, LocalDate returned) {
         this.user = user;
         this.vhs = vhs;
         this.rented = rented;
         this.returned = returned;
     }
 
-    public Rental() {
 
-    }
 
 
 

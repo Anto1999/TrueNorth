@@ -7,11 +7,7 @@ import java.time.LocalDate;
 @Table(name = "Vhs")
 public class Vhs {
     @Id
-    @SequenceGenerator(name = "vhs_sequence",
-            sequenceName = "vhs_sequence",
-            allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,
-            generator = "vhs_sequence")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="vhsId")
     private Long vhsId;
 
@@ -22,15 +18,19 @@ public class Vhs {
     private LocalDate published;
 
     @Column(name = "is_rental")
-    private boolean is_rental;
+    private boolean is_rental=false;
+
+
+
 
     public Vhs() {
     }
 
-    public Vhs(String title, LocalDate published, boolean is_rental) {
+    public Vhs(Long vhsId, String title, LocalDate published, boolean is_rental) {
+
         this.title = title;
         this.published = published;
-        this.is_rental = is_rental;
+
     }
 
     public Long getVhsId() {
