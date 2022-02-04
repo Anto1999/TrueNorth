@@ -18,15 +18,16 @@ public class Vhs {
     private LocalDate published;
 
     @Column(name = "is_rental")
-    private boolean is_rental=false;
+    private boolean is_rental;
 
 
 
 
     public Vhs() {
+
     }
 
-    public Vhs(Long vhsId, String title, LocalDate published, boolean is_rental) {
+    public Vhs(Long vhsId, String title, LocalDate published) {
 
         this.title = title;
         this.published = published;
@@ -63,5 +64,19 @@ public class Vhs {
 
     public void setIs_rental(boolean is_rental) {
         this.is_rental = is_rental;
+
+    }
+
+
+    @Override
+    public String toString() {
+        return "Vhs{" +
+                "vhsId=" + vhsId +
+                ", title='" + title + '\'' +
+                ", published=" + published +
+                ", is_rental=" + is_rental +
+                '}';
     }
 }
+
+

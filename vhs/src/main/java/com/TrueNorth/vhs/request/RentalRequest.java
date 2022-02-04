@@ -3,7 +3,9 @@ package com.TrueNorth.vhs.request;
 import com.TrueNorth.vhs.entity.User;
 import com.TrueNorth.vhs.entity.Vhs;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+
 
 public class RentalRequest {
     private User user_id;
@@ -11,6 +13,7 @@ public class RentalRequest {
     private LocalDate rental;
     private LocalDate returned;
     private boolean is_rental;
+
 
     public User getUser_id() {
         return user_id;
@@ -21,11 +24,15 @@ public class RentalRequest {
     }
 
     public Vhs getVhs_id() {
+        vhs_id.setIs_rental(is_rental);
         return vhs_id;
     }
 
     public void setVhs_id(Vhs vhs_id) {
+
         this.vhs_id = vhs_id;
+
+
     }
 
     public LocalDate getRental() {
@@ -44,7 +51,7 @@ public class RentalRequest {
         this.returned = returned;
     }
 
-    public boolean isIs_rental() {
+    public boolean isRental(){
         return is_rental;
     }
 

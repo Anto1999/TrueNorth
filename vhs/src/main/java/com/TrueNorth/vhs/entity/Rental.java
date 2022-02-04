@@ -34,16 +34,17 @@ public class Rental {
     @Column(name = "Returned")
     private LocalDate returned=LocalDate.now().plusDays(14);
 
-    public Rental(){
+    public Rental(){}
 
-    }
 
     @JsonCreator
     public Rental(@JsonProperty("user_id") User user,@JsonProperty("vhs_id") Vhs vhs, LocalDate rented, LocalDate returned) {
+        vhs.setIs_rental(true);
         this.user = user;
         this.vhs = vhs;
         this.rented = rented;
         this.returned = returned;
+
     }
 
 
@@ -70,9 +71,11 @@ public class Rental {
         return vhs;
     }
 
-    public void setVhs(Vhs vhs) {
-        this.vhs = vhs;
+    public void setVhs(Vhs vhs ) {
+        this.vhs=vhs;
+
     }
+
 
     public LocalDate getRented() {
         return rented;
@@ -89,4 +92,6 @@ public class Rental {
     public void setReturned(LocalDate returned) {
         this.returned = returned;
     }
+
+
 }
