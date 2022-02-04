@@ -1,7 +1,8 @@
 package com.TrueNorth.vhs.controller;
-
+import java.util.Optional.*;
 import com.TrueNorth.vhs.entity.Rental;
 import com.TrueNorth.vhs.entity.Vhs;
+import com.TrueNorth.vhs.exception.ResourceNotFoundException;
 import com.TrueNorth.vhs.request.RentalRequest;
 import com.TrueNorth.vhs.request.VhsRequest;
 import com.TrueNorth.vhs.service.RentalService;
@@ -34,6 +35,7 @@ public class RentalController {
     @PreAuthorize("hasRole('USER')  or hasRole('ADMIN')")
     public ResponseEntity<Rental> createRental(@RequestBody RentalRequest rentalRequest){
         rentalService.createRental(rentalRequest);
+
         return ResponseEntity.ok().build();
 
     }
@@ -43,17 +45,20 @@ public class RentalController {
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Rental> getRental(@PathVariable Long rentalId){
         return rentalService.getRentalById(rentalId);
+
     }
 
     //delete rental by id
-    @GetMapping("/delete/{rentalId}")
+    @DeleteMapping("/{rentalId}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Rental> DeleteRental(@PathVariable Long rentalId){
         rentalService.deleteRentalById(rentalId);
+
+
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/update/{rentalId}")
+    @PutMapping("/{rentalId}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Rental> updateRental(@RequestBody RentalRequest rentalRequest,@PathVariable Long rentalId){
         rentalService.updateRental(rentalRequest,rentalId);

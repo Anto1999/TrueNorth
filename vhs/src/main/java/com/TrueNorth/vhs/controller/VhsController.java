@@ -1,6 +1,7 @@
 package com.TrueNorth.vhs.controller;
 
 
+import com.TrueNorth.vhs.entity.Rental;
 import com.TrueNorth.vhs.entity.Vhs;
 
 import com.TrueNorth.vhs.repository.VhsRepository;
@@ -41,5 +42,11 @@ public class VhsController {
 
     }
 
+    @DeleteMapping("/{vhsId}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Vhs> deleteRentalById(@PathVariable Long vhsId){
+        vhsService.deleteVhs(vhsId);
+        return ResponseEntity.ok().build();
+    }
 
 }

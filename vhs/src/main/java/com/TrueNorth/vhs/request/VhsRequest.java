@@ -1,10 +1,14 @@
 package com.TrueNorth.vhs.request;
 
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 
 public class VhsRequest {
+    @NotBlank
     private String title;
+    @NotBlank
     private LocalDate published;
+    @NotBlank
     private boolean is_rental;
 
     public String getTitle() {
