@@ -32,7 +32,7 @@ public class RentalController {
 
     //create
     @PostMapping(path="/create")
-    @PreAuthorize("hasRole('USER')  or hasRole('ADMIN')")
+    @PreAuthorize(" hasRole('ADMIN')")
     public ResponseEntity<Rental> createRental(@RequestBody RentalRequest rentalRequest){
         rentalService.createRental(rentalRequest);
 
