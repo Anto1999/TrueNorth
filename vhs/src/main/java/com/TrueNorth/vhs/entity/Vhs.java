@@ -1,7 +1,15 @@
 package com.TrueNorth.vhs.entity;
 
+
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.springframework.asm.Type;
+import org.springframework.cglib.core.CodeEmitter;
+import org.springframework.cglib.core.HashCodeCustomizer;
+
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.lang.Object;
 
 @Entity
 @Table(name = "Vhs")
@@ -19,6 +27,7 @@ public class Vhs {
 
     @Column(name = "is_rental")
     private boolean is_rental;
+
 
 
 
@@ -66,6 +75,31 @@ public class Vhs {
         this.is_rental = is_rental;
 
     }
+
+    @Override
+    public int hashCode(){
+        HashCodeBuilder hcb = new HashCodeBuilder();
+        hcb.append(title)
+                .append(published);
+        return hcb.toHashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj ){
+        if(this == obj){
+            return true;
+        }
+        if(!(obj instanceof Vhs)){
+            return false;
+        }
+        Vhs that = (Vhs) obj;
+        EqualsBuilder eb = new EqualsBuilder();
+        eb.append(title,that.title)
+                .append(published,that.published);
+        return eb.isEquals();
+    }
+
+
 
 
     @Override
